@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>New Client Intake — Ad Collab Internal</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f4f7fa;
+      color: #1B3A5C;
+      min-height: 100vh;
+    }
+
+    /* ── Internal Banner ── */
+    .internal-banner {
+      background: #1B3A5C;
+      color: #00D4FF;
+      text-align: center;
+      padding: 8px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    /* ── Header ── */
+    .header {
+      background: #fff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .header img { height: 32px; }
+    .header .divider {
+      width: 1px;
+      height: 24px;
+      background: #e2e8f0;
+    }
+    .header .page-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #64748b;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    /* ── Main Container ── */
+    .container {
+      max-width: 720px;
+      margin: 40px auto;
+      padding: 0 24px 60px;
+    }
+
+    .page-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #1B3A5C;
+      margin-bottom: 8px;
+    }
+    .page-subtitle {
+      font-size: 15px;
+      color: #64748b;
+      margin-bottom: 36px;
+      line-height: 1.5;
+    }
+
+    /* ── Form Card ── */
+    .form-card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+      padding: 36px 32px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #0088FF;
+      margin-bottom: 20px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #E8F4FD;
+    }
+
+    .section-spacer {
+      margin-top: 32px;
+    }
+
+    /* ── Form Fields ── */
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .field-row.full {
+      grid-template-columns: 1fr;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #1B3A5C;
+      margin-bottom: 6px;
+    }
+    label .required { color: #0088FF; }
+
+    input, select, textarea {
+      font-family: inherit;
+      font-size: 14px;
+      color: #1B3A5C;
+      padding: 10px 14px;
+      border: 1px solid #d1d9e0;
+      border-radius: 8px;
+      background: #fff;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: #0088FF;
+      box-shadow: 0 0 0 3px rgba(0, 136, 255, 0.1);
+    }
+    input::placeholder, textarea::placeholder {
+      color: #94a3b8;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%2364748b' d='M1.41 0L6 4.58 10.59 0 12 1.41l-6 6-6-6z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+    }
+
+    /* ── Checkboxes ── */
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .checkbox-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-size: 13px;
+    }
+    .checkbox-item:hover {
+      border-color: #0088FF;
+      background: #f8fbff;
+    }
+    .checkbox-item input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: #0088FF;
+      cursor: pointer;
+      padding: 0;
+    }
+    .checkbox-item.checked {
+      border-color: #0088FF;
+      background: #E8F4FD;
+    }
+
+    /* ── Retainer Input ── */
+    .currency-wrapper {
+      position: relative;
+    }
+    .currency-wrapper .prefix {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #64748b;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .currency-wrapper input {
+      padding-left: 26px;
+    }
+
+    /* ── Submit Button ── */
+    .submit-btn {
+      display: block;
+      width: 100%;
+      padding: 14px 24px;
+      margin-top: 28px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      background: #1B3A5C;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      letter-spacing: 0.5px;
+      transition: background 0.2s;
+    }
+    .submit-btn:hover { background: #233B6E; }
+    .submit-btn:active { background: #142d4a; }
+    .submit-btn:disabled {
+      background: #94a3b8;
+      cursor: not-allowed;
+    }
+
+    /* ── Success State ── */
+    .success-card {
+      display: none;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+      padding: 48px 32px;
+      text-align: center;
+    }
+    .success-card.visible { display: block; }
+    .success-icon {
+      width: 56px;
+      height: 56px;
+      background: #E8F4FD;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+    .success-icon svg { width: 28px; height: 28px; }
+    .success-card h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #1B3A5C;
+      margin-bottom: 8px;
+    }
+    .success-card p {
+      font-size: 15px;
+      color: #64748b;
+      line-height: 1.6;
+      margin-bottom: 6px;
+    }
+    .success-card .detail {
+      font-size: 13px;
+      color: #94a3b8;
+      margin-top: 20px;
+    }
+    .reset-link {
+      display: inline-block;
+      margin-top: 24px;
+      font-size: 14px;
+      font-weight: 600;
+      color: #0088FF;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .reset-link:hover { text-decoration: underline; }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .field-row { grid-template-columns: 1fr; }
+      .checkbox-grid { grid-template-columns: 1fr; }
+      .form-card { padding: 24px 20px; }
+      .container { padding: 0 16px 40px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="internal-banner">Internal — Not Public</div>
+
+  <div class="header">
+    <img src="https://adcollab.agency/images/logo-black.png" alt="Ad Collab">
+    <div class="divider"></div>
+    <span class="page-label">Client Intake</span>
+  </div>
+
+  <div class="container">
+    <h1 class="page-title">New Client Intake</h1>
+    <p class="page-subtitle">Submit when a deal closes. This triggers the onboarding pipeline — Trello card, Sheets row, welcome email, and team notification.</p>
+
+    <!-- ── FORM ── -->
+    <div class="form-card" id="formCard">
+      <form id="intakeForm">
+
+        <!-- CLIENT INFO -->
+        <div class="section-label">Client Information</div>
+
+        <div class="field-row">
+          <div class="field">
+            <label>Business Name <span class="required">*</span></label>
+            <input type="text" name="business_name" required placeholder="e.g. Sacramento Pool Pros">
+          </div>
+          <div class="field">
+            <label>Contact Name <span class="required">*</span></label>
+            <input type="text" name="contact_name" required placeholder="e.g. Mike Johnson">
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label>Email <span class="required">*</span></label>
+            <input type="email" name="email" required placeholder="mike@sacramentopoolpros.com">
+          </div>
+          <div class="field">
+            <label>Phone <span class="required">*</span></label>
+            <input type="tel" name="phone" required placeholder="(916) 555-1234">
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label>Website</label>
+            <input type="url" name="website" placeholder="https://sacramentopoolpros.com">
+          </div>
+          <div class="field">
+            <label>Service Area</label>
+            <input type="text" name="service_area" placeholder="e.g. Sacramento metro, 25-mile radius">
+          </div>
+        </div>
+
+        <!-- ENGAGEMENT DETAILS -->
+        <div class="section-label section-spacer">Engagement Details</div>
+
+        <div class="field-row">
+          <div class="field">
+            <label>Division <span class="required">*</span></label>
+            <select name="division" required>
+              <option value="" disabled selected>Select division</option>
+              <option value="Service">Service Advertising</option>
+              <option value="Product">Product Advertising</option>
+              <option value="Both">Both</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Tier <span class="required">*</span></label>
+            <select name="tier" required>
+              <option value="" disabled selected>Select tier</option>
+              <option value="Starter">Starter (&lt;$2.5K spend / $500 retainer)</option>
+              <option value="Sweet Spot">Sweet Spot ($2.5K–$5K / $750 retainer)</option>
+              <option value="Growth">Growth ($5K+ / $1K+ retainer)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label>Monthly Retainer <span class="required">*</span></label>
+            <div class="currency-wrapper">
+              <span class="prefix">$</span>
+              <input type="number" name="retainer" required placeholder="750" min="0" step="50">
+            </div>
+          </div>
+          <div class="field">
+            <label>Monthly Ad Spend Budget <span class="required">*</span></label>
+            <div class="currency-wrapper">
+              <span class="prefix">$</span>
+              <input type="number" name="ad_spend" required placeholder="3000" min="0" step="100">
+            </div>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label>Start Date <span class="required">*</span></label>
+            <input type="date" name="start_date" required>
+          </div>
+          <div class="field">
+            <!-- empty cell for alignment -->
+          </div>
+        </div>
+
+        <!-- CHANNELS -->
+        <div class="section-label section-spacer">Channels</div>
+        <label style="margin-bottom: 12px; font-weight: 400; color: #64748b;">Select all channels included in this engagement.</label>
+
+        <div class="checkbox-grid" id="channelGrid">
+          <label class="checkbox-item"><input type="checkbox" name="channels" value="Google Search"> Google Search</label>
+          <label class="checkbox-item"><input type="checkbox" name="channels" value="Google Shopping"> Google Shopping</label>
+          <label class="checkbox-item"><input type="checkbox" name="channels" value="Google LSA"> Google LSA</label>
+          <label class="checkbox-item"><input type="checkbox" name="channels" value="GBP Management"> GBP Management</label>
+          <label class="checkbox-item"><input type="checkbox" name="channels" value="Meta Paid Social"> Meta Paid Social</label>
+          <label class="checkbox-item"><input type="checkbox" name="channels" value="Meta Catalog"> Meta Catalog</label>
+          <label class="checkbox-item"><input type="checkbox" name="channels" value="Organic Social"> Organic Social ($500 add-on)</label>
+          <label class="checkbox-item"><input type="checkbox" name="channels" value="PMax"> Performance Max</label>
+          <label class="checkbox-item"><input type="checkbox" name="channels" value="YouTube"> YouTube</label>
+          <label class="checkbox-item"><input type="checkbox" name="channels" value="Demand Gen"> Demand Gen</label>
+          <label class="checkbox-item"><input type="checkbox" name="channels" value="Programmatic"> Programmatic</label>
+          <label class="checkbox-item"><input type="checkbox" name="channels" value="Email"> Email Marketing</label>
+        </div>
+
+        <!-- NOTES -->
+        <div class="section-label section-spacer">Notes</div>
+
+        <div class="field-row full">
+          <div class="field">
+            <label>Special Instructions / Context</label>
+            <textarea name="notes" rows="4" placeholder="Anything the team needs to know — prior agency history, specific goals, client expectations, creative preferences, etc."></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">Submit &amp; Trigger Onboarding</button>
+      </form>
+    </div>
+
+    <!-- ── SUCCESS ── -->
+    <div class="success-card" id="successCard">
+      <div class="success-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0088FF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
+      <h2>Onboarding Triggered</h2>
+      <p>Trello card created. Sheets row added. Welcome email sent. Team notified.</p>
+      <p class="detail" id="successDetail"></p>
+      <a class="reset-link" id="resetLink">Submit another client</a>
+    </div>
+
+  </div>
+
+  <script>
+    // Checkbox visual toggle
+    document.querySelectorAll('.checkbox-item input[type="checkbox"]').forEach(cb => {
+      cb.addEventListener('change', () => {
+        cb.closest('.checkbox-item').classList.toggle('checked', cb.checked);
+      });
+    });
+
+    // Form submission
+    const form = document.getElementById('intakeForm');
+    const formCard = document.getElementById('formCard');
+    const successCard = document.getElementById('successCard');
+    const submitBtn = document.getElementById('submitBtn');
+    const successDetail = document.getElementById('successDetail');
+    const resetLink = document.getElementById('resetLink');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting...';
+
+      const formData = new FormData(form);
+
+      // Collect channels as comma-separated string
+      const channels = formData.getAll('channels').join(', ');
+
+      const payload = {
+        business_name: formData.get('business_name'),
+        contact_name: formData.get('contact_name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        website: formData.get('website') || '',
+        service_area: formData.get('service_area') || '',
+        division: formData.get('division'),
+        tier: formData.get('tier'),
+        retainer: formData.get('retainer'),
+        ad_spend: formData.get('ad_spend'),
+        start_date: formData.get('start_date'),
+        channels: channels,
+        notes: formData.get('notes') || '',
+        submitted_at: new Date().toISOString()
+      };
+
+      try {
+        // ── REPLACE THIS URL WITH YOUR MAKE WEBHOOK URL ──
+        const webhookUrl = 'https://hook.us2.make.com/ppw5vg3d62sm3srrjrf033a67ay6fda5';
+
+        await fetch(webhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        successDetail.textContent = `${payload.business_name} — ${payload.tier} tier — ${payload.division} division — $${parseInt(payload.retainer).toLocaleString()}/mo retainer`;
+        formCard.style.display = 'none';
+        successCard.classList.add('visible');
+
+      } catch (err) {
+        alert('Submission failed — check your webhook URL and try again.');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit & Trigger Onboarding';
+      }
+    });
+
+    // Reset
+    resetLink.addEventListener('click', () => {
+      form.reset();
+      document.querySelectorAll('.checkbox-item.checked').forEach(el => el.classList.remove('checked'));
+      formCard.style.display = 'block';
+      successCard.classList.remove('visible');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit & Trigger Onboarding';
+    });
+  </script>
+
+</body>
+</html>

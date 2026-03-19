@@ -351,12 +351,36 @@
             </select>
           </div>
           <div class="field">
-            <label>Tier <span class="required">*</span></label>
-            <select name="tier" required>
-              <option value="" disabled selected>Select tier</option>
-              <option value="Starter">Starter (&lt;$2.5K spend / $500 retainer)</option>
-              <option value="Sweet Spot">Sweet Spot ($2.5K–$5K / $750 retainer)</option>
-              <option value="Growth">Growth ($5K+ / $1K+ retainer)</option>
+            <label>Vertical <span class="required">*</span></label>
+            <select name="vertical" required>
+              <option value="" disabled selected>Select vertical</option>
+              <optgroup label="Service">
+                <option value="Plumbing">Plumbing</option>
+                <option value="HVAC">HVAC</option>
+                <option value="Roofing">Roofing</option>
+                <option value="Landscaping">Landscaping</option>
+                <option value="Pool Maintenance">Pool Maintenance</option>
+                <option value="Dog Training">Dog Training</option>
+                <option value="Pest Control">Pest Control</option>
+                <option value="Mobile Detailing">Mobile Detailing</option>
+                <option value="Garage Door">Garage Door</option>
+                <option value="Home Remodeling">Home Remodeling</option>
+                <option value="Electrician">Electrician</option>
+                <option value="Online Auctions">Online Auctions</option>
+              </optgroup>
+              <optgroup label="Product / Inventory">
+                <option value="Trailer Dealer">Trailer Dealer</option>
+                <option value="Powersports">Powersports</option>
+                <option value="RV Dealer">RV Dealer</option>
+                <option value="Marine / Boat">Marine / Boat</option>
+                <option value="Farm / Ag Equipment">Farm / Ag Equipment</option>
+                <option value="Heavy Equipment">Heavy Equipment</option>
+                <option value="Furniture">Furniture</option>
+                <option value="Pool & Spa Dealer">Pool & Spa Dealer</option>
+                <option value="Outdoor / Sporting Goods">Outdoor / Sporting Goods</option>
+                <option value="Used Auto Lot">Used Auto Lot</option>
+              </optgroup>
+              <option value="Other">Other</option>
             </select>
           </div>
         </div>
@@ -384,7 +408,8 @@
             <input type="date" name="start_date" required>
           </div>
           <div class="field">
-            <!-- empty cell for alignment -->
+            <label>End Date</label>
+            <input type="date" name="end_date">
           </div>
         </div>
 
@@ -470,10 +495,11 @@
         website: formData.get('website') || '',
         service_area: formData.get('service_area') || '',
         division: formData.get('division'),
-        tier: formData.get('tier'),
+        vertical: formData.get('vertical'),
         retainer: formData.get('retainer'),
         ad_spend: formData.get('ad_spend'),
         start_date: formData.get('start_date'),
+        end_date: formData.get('end_date') || '',
         channels: channels,
         notes: formData.get('notes') || '',
         submitted_at: new Date().toISOString()
@@ -489,7 +515,7 @@
           body: JSON.stringify(payload)
         });
 
-        successDetail.textContent = `${payload.business_name} — ${payload.tier} tier — ${payload.division} division — $${parseInt(payload.retainer).toLocaleString()}/mo retainer`;
+        successDetail.textContent = `${payload.business_name} — ${payload.vertical} — ${payload.division} division — $${parseInt(payload.retainer).toLocaleString()}/mo retainer`;
         formCard.style.display = 'none';
         successCard.classList.add('visible');
 

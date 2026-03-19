@@ -342,7 +342,7 @@
         <div class="field-row">
           <div class="field">
             <label>Website</label>
-            <input type="url" name="website" placeholder="https://sacramentopoolpros.com">
+            <input type="text" name="website" placeholder="e.g. sacramentopoolpros.com">
           </div>
           <div class="field">
             <label>Service Area</label>
@@ -500,12 +500,19 @@
       // Collect channels as comma-separated string
       const channels = formData.getAll('channels').join(', ');
 
+      // Normalize website URL
+      let website = formData.get('website') || '';
+      if (website && !website.match(/^https?:\/\//i)) {
+        website = website.replace(/^www\./i, '');
+        website = 'https://' + website;
+      }
+
       const payload = {
         business_name: formData.get('business_name'),
         contact_name: formData.get('contact_name'),
         email: formData.get('email'),
         phone: formData.get('phone'),
-        website: formData.get('website') || '',
+        website: website,
         service_area: formData.get('service_area') || '',
         division: formData.get('division'),
         vertical: formData.get('vertical'),
